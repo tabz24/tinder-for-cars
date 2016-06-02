@@ -3,6 +3,8 @@
   var selectedCard = null;
   var mouse_x = 0;
   var mouse_y = 0;
+  var screen_x = 0;
+  var screen_y = 0;
   var ele_x = 0;
   var ele_y = 0;
   var cardOffsetLeft = 0;
@@ -135,7 +137,6 @@
           selectedCard.classList.remove('addLikeTag');
           selectedCard.classList.add('addNopeTag');
         }
-
     }
   }
 
@@ -174,11 +175,58 @@
     updateMouseDown();
   }
 
+  function getContainer(ele) {
+    var origin = ele;
+    while (!origin.classList.contains('card')){
+      origin = origin.parentNode;
+    }
+    return origin;
+  }
+
+  function dragStartedByTouch (ev) {
+    selectedCard = getContainer(ev.target);
+    cardOffsetLeft = selectedCard.offsetLeft;
+    ele_x = screen_x - selectedCard.offsetLeft;
+    ele_y = screen_y - selectedCard.offsetTop;    
+  }
+
+  function stopCardByTouch() {
+    if (selectedCard !== null) {
+      if(screen_x > window.innerWidth/2) {
+        selectedCard.classList.add('likeSelected');
+      }
+      else {
+        selectedCard.classList.add('nopeSelected');
+      }    
+      selectedCard = null;
+    }
+  }
+
+  function moveCardByTouch(ev) {
+    screen_x = ev.touches[0].pageX;
+    screen_y = ev.touches[0].pageY;
+    if (selectedCard !== null) {
+        selectedCard.style.left = (screen_x - ele_x - cardOffsetLeft) + 'px';
+        selectedCard.style.top = (screen_y - ele_y) + 'px';
+        if(screen_x > window.innerWidth/2) {
+          selectedCard.style.transform = "rotate(10deg)";
+          selectedCard.classList.remove('addNopeTag');
+          selectedCard.classList.add('addLikeTag');
+        }
+        else {
+          selectedCard.style.transform = "rotate(-10deg)";
+          selectedCard.classList.remove('addLikeTag');
+          selectedCard.classList.add('addNopeTag');
+        }
+    }
+  }
+
   function updateMouseDown() {
     document.getElementsByClassName('current')[0].onmousedown = function () {
       dragStarted(this);
       return false;
     };
+    document.getElementsByClassName('current')[0].addEventListener('touchstart', dragStartedByTouch);
   }
 
   document.body.addEventListener('animationend', animationdone);
@@ -187,6 +235,8 @@
   document.getElementById('btnLike').addEventListener('click', animatecard);
   document.onmousemove = moveCard;
   document.onmouseup = stopCard;
+  document.addEventListener('touchmove', moveCardByTouch);
+  document.addEventListener('touchend', stopCardByTouch);
   init_data();
   updateMouseDown();
 })();
