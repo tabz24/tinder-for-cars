@@ -173,6 +173,7 @@
     var clone = target.cloneNode(true);
     parent.appendChild(clone);
     updateMouseDown();
+    window.location.pathname = "profile.html"
   }
 
   function getContainer(ele) {
@@ -184,6 +185,8 @@
   }
 
   function dragStartedByTouch (ev) {
+    screen_x = ev.touches[0].pageX;
+    screen_y = ev.touches[0].pageY;
     selectedCard = getContainer(ev.target);
     cardOffsetLeft = selectedCard.offsetLeft;
     ele_x = screen_x - selectedCard.offsetLeft;

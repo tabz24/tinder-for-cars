@@ -1,0 +1,46 @@
+
+.container {
+	width: 100%;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+}
+
+.dvImage {
+	width: 100%;
+	height: 300px;
+	margin-bottom: 20px;
+}
+
+.image {
+	width: 100%;
+	height: 100%;
+	object-fit: none;
+	object-position: center;
+}
+
+.col-1 {
+	width: 80px;
+	float: left;
+	font-weight: bold;
+}
+
+.col-2 {
+	width: calc(100% - 80px);
+	float: left;
+}
+
+.clearBoth {
+	clear: both;
+}
+
+.price {
+	font-size: larger;
+	padding-bottom: 15px;
+}
+
+.about {
+	font-size: larger;
+	padding-bottom: 15px;
+}
