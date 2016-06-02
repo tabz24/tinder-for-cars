@@ -103,7 +103,7 @@
     updateMouseDown();
     var id = target.id.split('_')[1];
     if (ev.animationName === 'likeAnimate') {
-      window.location.href = window.location.host + "/tinder-for-cars/profile.html?id=" + id;
+      window.location.href = "/profile.html?id=" + id;
     }
   }
 
