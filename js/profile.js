@@ -8,7 +8,7 @@
 				id = params[i].split('=')[1];
 			}
 		}
-		return id;
+		return parseInt(id)-1;
 	}
 
 	function init_data() {
