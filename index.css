@@ -1,4 +1,8 @@
 /* Design of a card */
+body {
+  overflow: hidden;
+}
+
 .dvCard {
   width: 100%;
   height: 100%;
@@ -8,9 +12,9 @@
 
 .dvImage {
   width: 100%;
-  height: 22rem;
+  height: 300px;
   text-align: center;
-  line-height: 22rem;
+  line-height: 300px;
 }
 
 .image {
@@ -41,8 +45,8 @@
 }
 
 .cardcontainer .cardlist {
-  width: 22rem;
-  height: 25rem;
+  width: 300px;
+  height: 350px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 0px;
@@ -51,25 +55,25 @@
 .dvButtons {
   margin-left: auto;
   margin-right: auto;
-  width: 22rem;
-  margin-top: 30px;
+  width: 300px;
+  margin-top: 40px;
 }
 
 .button {
   float: left;
-  width: 100px;
-  height: 100px;
-  font-size: 60px;
+  width: 75px;
+  height: 75px;
+  font-size: 50px;
   text-align: center;
-  line-height: 100px;
+  line-height: 75px;
   border: 10px solid gainsboro;
   border-radius: 50%;
-  margin-left: 50px;
+  margin-left: 35px;
 }
 
 .like {
   color: green;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .nope {
@@ -77,7 +81,7 @@
 }
 
 .list .card {
-  margin-top: -110%;
+  margin-top: -113%;
   background: white;
   position: relative;
   z-index: 0
@@ -106,7 +110,7 @@
 
 .tag {
   display: none;
-  margin-top: -350px;
+  margin-top: -250px;
   width: 90px;
   height: 50px;
   line-height: normal;
@@ -124,7 +128,7 @@
 .addNopeTag .nopeTag {
   display: block;
   transform: rotate(20deg);
-  margin-left: 270px;
+  margin-left: 175px;
   color: red;
   font-size: 40px;
   border: 5px solid red;
@@ -135,40 +139,6 @@
   transform: rotate(20deg);
 }
 
-/* Button designs */
-
-.but-nope, .but-yay, .nopes, .yays {
-  display: none;
-}
-
-.tinderesque .but-nope, .tinderesque .but-yay,
-.tinderesque .nopes, .tinderesque .yays {
-  display: inline-block;
-}
-
-.cardcontainer button {
-  background: #0c0;
-  border: none;
-  color: #fff;
-  border-radius: 50% 50%;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  margin: 0 .5em;
-  display: inline-block;
-}
-.cardcontainer button:focus {
-  outline: 0;
-  background: #0f0;
-}
-.cardcontainer .but-nope {
-  background: #c00;
-}
-.cardcontainer .but-nope:focus {
-  outline: 0;
-  background: #f00;
-}
-
 .cardcontainer .card.likeSelected {
   -webkit-animation: likeAnimate 0.5s ease-out;
   animation: likeAnimate 0.5s ease-out;
@@ -177,11 +147,6 @@
   -webkit-animation: nopeAnimate 0.5s ease-out;
   animation: nopeAnimate 0.5s ease-out;
 }
-
-
-/*
-  Animations, isn't it 'fun' to repeat all of that, just for Safari? :)
-*/
 
 @keyframes likeAnimate {
   from {
