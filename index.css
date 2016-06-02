@@ -8,9 +8,9 @@
 
 .dvImage {
   width: 100%;
-  height: 400px;
+  height: 22rem;
   text-align: center;
-  line-height: 400px;
+  line-height: 22rem;
 }
 
 .image {
@@ -41,8 +41,8 @@
 }
 
 .cardcontainer .cardlist {
-  width: 400px;
-  height: 450px;
+  width: 22rem;
+  height: 25rem;
   margin-left: auto;
   margin-right: auto;
   padding-left: 0px;
@@ -51,7 +51,7 @@
 .dvButtons {
   margin-left: auto;
   margin-right: auto;
-  width: 400px;
+  width: 22rem;
   margin-top: 30px;
 }
 
@@ -98,6 +98,10 @@
 
 .card:nth-child(3) {
   z-index: 1;
+}
+
+.card:nth-child(n+4) {
+  display: none
 }
 
 .tag {
