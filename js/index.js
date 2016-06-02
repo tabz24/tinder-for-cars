@@ -103,8 +103,7 @@
     updateMouseDown();
     var id = target.id.split('_')[1];
     if (ev.animationName === 'likeAnimate') {
-      window.location.pathname = "/tinder-for-cars/profile.html?id=" + id;
-//        window.location.pathname = "/home/tabz/workspace/tinder-for-cars/profile.html";
+      window.location.href = window.location.host + "/tinder-for-cars/profile.html?id=" + id;
     }
   }
 

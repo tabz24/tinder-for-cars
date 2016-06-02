@@ -1,6 +1,6 @@
 (function(){
 	function getId() {
-		var parameters = window.location.split('?')[1];
+		var parameters = window.location.pathname.split('?')[1];
 		var params = parameters.split('&');
 		var id = null;
 		for(var i = 0; i < params.length; i++) {
