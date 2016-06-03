@@ -57,7 +57,8 @@
     if (selectedCard !== null) {
         selectedCard.style.left = (mouse_x - ele_x - cardOffsetLeft) + 'px';
         selectedCard.style.top = (mouse_y - ele_y) + 'px';
-        if(mouse_x > window.innerWidth/2) {
+        var currentCardOffsetLeft = selectedCard.offsetLeft;
+        if(currentCardOffsetLeft > cardOffsetLeft) {
           selectedCard.style.transform = "rotate(10deg)";
           selectedCard.classList.remove('addNopeTag');
           selectedCard.classList.add('addLikeTag');
@@ -72,7 +73,8 @@
 
   function stopCard() {
     if (selectedCard !== null) {
-      if(mouse_x > window.innerWidth/2) {
+      var currentCardOffsetLeft = selectedCard.offsetLeft;
+      if(currentCardOffsetLeft > cardOffsetLeft) {
         selectedCard.classList.add('likeSelected');
       }
       else {
