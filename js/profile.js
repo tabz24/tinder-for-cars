@@ -20,7 +20,5 @@
 			document.getElementById('about').innerHTML = data[id].desc;
 		}
 	}
-
 	init_data();
-
 })();

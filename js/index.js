@@ -3,8 +3,6 @@
   var selectedCard = null;
   var mouse_x = 0;
   var mouse_y = 0;
-  var screen_x = 0;
-  var screen_y = 0;
   var ele_x = 0;
   var ele_y = 0;
   var cardOffsetLeft = 0;
@@ -49,9 +47,13 @@
     ele_y = mouse_y - selectedCard.offsetTop;
   }
 
-  function moveCard(ele) {
+  function mouseMoved(ele) {
     mouse_x = document.all ? window.event.clientX : ele.pageX;
     mouse_y = document.all ? window.event.clientY : ele.pageY;
+    moveCard();
+  }
+
+  function moveCard() {
     if (selectedCard !== null) {
         selectedCard.style.left = (mouse_x - ele_x - cardOffsetLeft) + 'px';
         selectedCard.style.top = (mouse_y - ele_y) + 'px';
@@ -116,43 +118,18 @@
   }
 
   function dragStartedByTouch (ev) {
-    screen_x = ev.touches[0].pageX;
-    screen_y = ev.touches[0].pageY;
+    mouse_x = ev.touches[0].pageX;
+    mouse_y = ev.touches[0].pageY;
     selectedCard = getContainer(ev.target);
     cardOffsetLeft = selectedCard.offsetLeft;
-    ele_x = screen_x - selectedCard.offsetLeft;
-    ele_y = screen_y - selectedCard.offsetTop;    
+    ele_x = mouse_x - selectedCard.offsetLeft;
+    ele_y = mouse_y - selectedCard.offsetTop;    
   }
 
-  function stopCardByTouch() {
-    if (selectedCard !== null) {
-      if(screen_x > window.innerWidth/2) {
-        selectedCard.classList.add('likeSelected');
-      }
-      else {
-        selectedCard.classList.add('nopeSelected');
-      }    
-      selectedCard = null;
-    }
-  }
-
-  function moveCardByTouch(ev) {
-    screen_x = ev.touches[0].pageX;
-    screen_y = ev.touches[0].pageY;
-    if (selectedCard !== null) {
-        selectedCard.style.left = (screen_x - ele_x - cardOffsetLeft) + 'px';
-        selectedCard.style.top = (screen_y - ele_y) + 'px';
-        if(screen_x > window.innerWidth/2) {
-          selectedCard.style.transform = "rotate(10deg)";
-          selectedCard.classList.remove('addNopeTag');
-          selectedCard.classList.add('addLikeTag');
-        }
-        else {
-          selectedCard.style.transform = "rotate(-10deg)";
-          selectedCard.classList.remove('addLikeTag');
-          selectedCard.classList.add('addNopeTag');
-        }
-    }
+  function touchMoved(ev) {
+    mouse_x = ev.touches[0].pageX;
+    mouse_y = ev.touches[0].pageY;
+    moveCard();
   }
 
   function updateMouseDown() {
@@ -167,10 +144,10 @@
   document.body.addEventListener('webkitAnimationEnd', animationdone);
   document.getElementById('btnNope').addEventListener('click', animatecard);
   document.getElementById('btnLike').addEventListener('click', animatecard);
-  document.onmousemove = moveCard;
+  document.onmousemove = mouseMoved;
   document.onmouseup = stopCard;
-  document.addEventListener('touchmove', moveCardByTouch);
-  document.addEventListener('touchend', stopCardByTouch);
+  document.addEventListener('touchmove', touchMoved);
+  document.addEventListener('touchend', stopCard);
   init_data();
   updateMouseDown();
 })();
