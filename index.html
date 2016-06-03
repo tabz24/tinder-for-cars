@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Tinder for cars</title>
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
 </head>
 <body>
@@ -12,26 +12,6 @@
         <div class="cardcontainer list">
             <ul class="cardlist">
                 <li class="card current">
-                    <div class="dvCard">
-                        <div class="dvImage">
-                            <img class="image" src="http://media.zigcdn.com/media/model/2016/Jan/honda_city_600x300.jpg"/>
-                            <div class="likeTag tag">Like</div>
-                            <div class="nopeTag tag">Nope</div>
-                        </div>
-                        <span class="name">Honda City E i VTEC</span>
-                    </div>
-                </li>
-                <li class="card">
-                    <div class="dvCard">
-                        <div class="dvImage">
-                            <img class="image" src="http://media.zigcdn.com/media/model/2016/Jan/honda_city_600x300.jpg"/>
-                            <div class="likeTag tag">Like</div>
-                            <div class="nopeTag tag">Nope</div>
-                        </div>
-                        <span class="name">Honda City E i VTEC</span>
-                    </div>
-                </li>
-                <li class="card">
                     <div class="dvCard">
                         <div class="dvImage">
                             <img class="image" src="http://media.zigcdn.com/media/model/2016/Jan/honda_city_600x300.jpg"/>
@@ -49,21 +29,9 @@
             </div>
         </div>
     </section>
-
-    <script src="index.js"></script>
-    <script>
-      document.body.addEventListener('nopecard', function(ev) {
-        // console.log(ev.detail);
-    });
-      document.body.addEventListener('yepcard', function(ev) {
-        // console.log(ev.detail);
-    });
-      document.body.addEventListener('deckempty', function(ev) {
-        // console.log(ev.detail);
-    });
-      document.body.addEventListener('cardchosen', function(ev) {
-        // console.log(ev.detail);
-    });
-</script>
+    <section>
+    </section>
+    <script src="js/data.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

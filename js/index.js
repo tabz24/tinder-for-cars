@@ -6,6 +6,24 @@
   var ele_x = 0;
   var ele_y = 0;
   var cardOffsetLeft = 0;
+
+  function init_data () {
+    var card = document.body.querySelector('.current');
+    var parent = card.parentNode;
+    parent.querySelector('.current').remove();
+    card.classList.remove('current');
+    for(var i = 0; i < data.length; i++) {
+      var clone = card.cloneNode(true);
+      clone.id = "card_" + data[i].id;
+      clone.querySelector('img').src = data[i].src;
+      clone.querySelector('.name').innerHTML = data[i].name;
+      if(i == 0) {
+        clone.classList.add('current');
+      }
+      parent.appendChild(clone);
+    }
+  }
+
   function animatecard(ev) {
     if (animating === false) {
       var t = ev.currentTarget;
@@ -19,14 +37,6 @@
         t.parentNode.parentNode.querySelector('.current').classList.add('addLikeTag');
         animating = true;
       }
-      if (t.classList.contains('current')) {
-        fireCustomEvent('cardchosen',
-          {
-            container: getContainer(t),
-            card: t
-          }
-        );
-      }
     }
   }
 
@@ -37,13 +47,18 @@
     ele_y = mouse_y - selectedCard.offsetTop;
   }
 
-  function moveCard(ele) {
+  function mouseMoved(ele) {
     mouse_x = document.all ? window.event.clientX : ele.pageX;
     mouse_y = document.all ? window.event.clientY : ele.pageY;
+    moveCard();
+  }
+
+  function moveCard() {
     if (selectedCard !== null) {
         selectedCard.style.left = (mouse_x - ele_x - cardOffsetLeft) + 'px';
         selectedCard.style.top = (mouse_y - ele_y) + 'px';
-        if(mouse_x > window.innerWidth/2) {
+        var currentCardOffsetLeft = selectedCard.offsetLeft;
+        if(currentCardOffsetLeft > cardOffsetLeft) {
           selectedCard.style.transform = "rotate(10deg)";
           selectedCard.classList.remove('addNopeTag');
           selectedCard.classList.add('addLikeTag');
@@ -53,26 +68,20 @@
           selectedCard.classList.remove('addLikeTag');
           selectedCard.classList.add('addNopeTag');
         }
-
     }
   }
 
   function stopCard() {
-    if(mouse_x > window.innerWidth/2) {
-      selectedCard.classList.add('likeSelected');
+    if (selectedCard !== null) {
+      var currentCardOffsetLeft = selectedCard.offsetLeft;
+      if(currentCardOffsetLeft > cardOffsetLeft) {
+        selectedCard.classList.add('likeSelected');
+      }
+      else {
+        selectedCard.classList.add('nopeSelected');
+      }    
+      selectedCard = null;
     }
-    else {
-      selectedCard.classList.add('nopeSelected');
-    }    
-    selectedCard = null;
-  }
-
-  function getContainer(elm) {
-    var origin = elm.parentNode;
-    if (!origin.classList.contains('cardcontainer')){
-      origin = origin.parentNode;
-    }
-    return origin;
   }
 
   function animationdone(ev) {
@@ -96,6 +105,33 @@
     var clone = target.cloneNode(true);
     parent.appendChild(clone);
     updateMouseDown();
+    var id = target.id.split('_')[1];
+    if (ev.animationName === 'likeAnimate') {
+      window.location.href = "/tinder-for-cars/profile.html?id=" + id;
+    }
+  }
+
+  function getContainer(ele) {
+    var origin = ele;
+    while (!origin.classList.contains('card')){
+      origin = origin.parentNode;
+    }
+    return origin;
+  }
+
+  function dragStartedByTouch (ev) {
+    mouse_x = ev.touches[0].pageX;
+    mouse_y = ev.touches[0].pageY;
+    selectedCard = getContainer(ev.target);
+    cardOffsetLeft = selectedCard.offsetLeft;
+    ele_x = mouse_x - selectedCard.offsetLeft;
+    ele_y = mouse_y - selectedCard.offsetTop;    
+  }
+
+  function touchMoved(ev) {
+    mouse_x = ev.touches[0].pageX;
+    mouse_y = ev.touches[0].pageY;
+    moveCard();
   }
 
   function updateMouseDown() {
@@ -103,14 +139,17 @@
       dragStarted(this);
       return false;
     };
+    document.getElementsByClassName('current')[0].addEventListener('touchstart', dragStartedByTouch);
   }
 
   document.body.addEventListener('animationend', animationdone);
   document.body.addEventListener('webkitAnimationEnd', animationdone);
   document.getElementById('btnNope').addEventListener('click', animatecard);
   document.getElementById('btnLike').addEventListener('click', animatecard);
-  document.body.querySelector('.current').addEventListener('onmousedown', dragStarted);
-  updateMouseDown();
-  document.onmousemove = moveCard;
+  document.onmousemove = mouseMoved;
   document.onmouseup = stopCard;
+  document.addEventListener('touchmove', touchMoved);
+  document.addEventListener('touchend', stopCard);
+  init_data();
+  updateMouseDown();
 })();
