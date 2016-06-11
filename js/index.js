@@ -134,22 +134,45 @@
     moveCard();
   }
 
+  function userAgentDetect() {
+    if(window.navigator.userAgent.match(/Mobile/i)
+    || window.navigator.userAgent.match(/iPhone/i)
+    || window.navigator.userAgent.match(/iPod/i)
+    || window.navigator.userAgent.match(/IEMobile/i)
+    || window.navigator.userAgent.match(/Windows Phone/i)
+    || window.navigator.userAgent.match(/Android/i)
+    || window.navigator.userAgent.match(/BlackBerry/i)
+    || window.navigator.userAgent.match(/webOS/i)
+    || window.navigator.userAgent.match(/Tablet/i)
+    || window.navigator.userAgent.match(/iPad/i)
+    || window.navigator.userAgent.match(/Nexus 7/i)
+    || window.navigator.userAgent.match(/Nexus 10/i)
+    || window.navigator.userAgent.match(/KFAPWI/i)) {
+      return true;
+    }
+    return false;
+  }
+
   function updateMouseDown() {
-    document.getElementsByClassName('current')[0].onmousedown = function () {
-      dragStarted(this);
-      return false;
-    };
-    document.getElementsByClassName('current')[0].addEventListener('touchstart', dragStartedByTouch);
+    if(userAgentDetect()) {
+      document.getElementsByClassName('current')[0].addEventListener('touchstart', dragStartedByTouch);
+      document.addEventListener('touchmove', touchMoved);
+      document.addEventListener('touchend', stopCard);
+    }
+    else {
+      document.getElementsByClassName('current')[0].onmousedown = function () {
+        dragStarted(this);
+        return false;
+      };
+      document.onmousemove = mouseMoved;
+      document.onmouseup = stopCard;
+    }
   }
 
   document.body.addEventListener('animationend', animationdone);
   document.body.addEventListener('webkitAnimationEnd', animationdone);
   document.getElementById('btnNope').addEventListener('click', animatecard);
   document.getElementById('btnLike').addEventListener('click', animatecard);
-  document.onmousemove = mouseMoved;
-  document.onmouseup = stopCard;
-  document.addEventListener('touchmove', touchMoved);
-  document.addEventListener('touchend', stopCard);
   init_data();
   updateMouseDown();
 })();
